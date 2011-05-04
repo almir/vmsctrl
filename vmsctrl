@@ -40,8 +40,8 @@ VMACHINES=("`ls $VMSPATH`")
 
 case "$1" in
   start)
-        log_daemon_msg "Starting $DESC" "$NAME"
-           # Start powering on the virtual machines
+        log_daemon_msg "Starting virtual machines"
+           # Starting virtual machines
            for i in $VMACHINES
            do
               su - "$USERNAME" -c "vmrun start $VMSPATH/$i/$i.vmx nogui"
@@ -49,21 +49,61 @@ case "$1" in
         log_end_msg $?
         ;;
   stop)
-        log_daemon_msg "Stopping $DESC" "$NAME"
-           # Start powering off the virtual machines
+        log_daemon_msg "Shutting down virtual machines"
+           # Shutting down virtual machines
            for i in $VMACHINES
            do
               su - "$USERNAME" -c "vmrun stop $VMSPATH/$i/$i.vmx soft"
            done
         log_end_msg $?
         ;;
+  force-stop)
+        log_daemon_msg "Powering off virtual machines"
+           # Powering off virtual machines
+           for i in $VMACHINES
+           do
+              su - "$USERNAME" -c "vmrun stop $VMSPATH/$i/$i.vmx hard"
+           done
+        log_end_msg $?
+        ;;
   restart)
-        $0 stop
-        sleep 3
-        $0 start
+        log_daemon_msg "Restarting virtual machines"
+           # Restarting virtual machines
+           for i in $VMACHINES
+           do
+              su - "$USERNAME" -c "vmrun reset $VMSPATH/$i/$i.vmx soft"
+           done
+        log_end_msg $?
+        ;;
+  force-restart)
+        log_daemon_msg "Power cycling virtual machines"
+           # Power cycling virtual machines
+           for i in $VMACHINES
+           do
+              su - "$USERNAME" -c "vmrun reset $VMSPATH/$i/$i.vmx hard"
+           done
+        log_end_msg $?
+        ;;
+  suspend)
+        log_daemon_msg "Suspending virtual machines (soft)"
+           # Suspending virtual machines after running system scripts
+           for i in $VMACHINES
+           do
+              su - "$USERNAME" -c "vmrun suspend $VMSPATH/$i/$i.vmx soft"
+           done
+        log_end_msg $?
+        ;;
+  force-suspend)
+        log_daemon_msg "Suspending virtual machines (hard)"
+           # Suspending virtual machines without running system scripts
+           for i in $VMACHINES
+           do
+              su - "$USERNAME" -c "vmrun suspend $VMSPATH/$i/$i.vmx hard"
+           done
+        log_end_msg $?
         ;;
   *)
-        log_success_msg "Usage: "$0" {start|stop|restart}"
+        log_success_msg "Usage: "$0" {start|stop|force-stop|restart|force-restart|suspend|force-suspend}"
         exit 1
         ;;
 esac
