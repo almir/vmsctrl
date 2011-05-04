@@ -1,0 +1,71 @@
+#!/bin/bash
+
+######################################################################################
+## Script for automatic control over VMware Workstation virtual machines
+## Copyright (C) 2011 Almir Dzinovic <almir@dzinovic.net>
+##
+## This program is free software; you can redistribute it and/or modify it under
+## the terms of the GNU General Public License as published by the Free Software
+## Foundation; either version 3 of the License, or (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful, but WITHOUT
+## ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+## FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+##
+## Get the full text of the GPL here: http://www.gnu.org/licenses/gpl.txt
+######################################################################################
+
+### BEGIN INIT INFO
+# Provides: VMware VMs Control
+# Required-Start: $local_fs $network $syslog
+# Required-Stop:
+# Default-Start: 2 3 5
+# Default-Stop: 0 6
+# Short-Description: Starts or stops VMware Workstation VMs
+# Description: Starts or stops VMware Workstation virtual machines
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+DESC="VMware Workstation VMs control script"
+NAME="vmsctrl"
+
+# The two variables below should be configured
+# Username of the regular user under whose credentials VMs should be started
+USERNAME=reguser
+# Absolute path to the folder containing all VMs
+VMSPATH="/path/to/vmachines/location"
+
+VMACHINES=("`ls $VMSPATH`")
+
+case "$1" in
+  start)
+        log_daemon_msg "Starting $DESC" "$NAME"
+           # Start powering on the virtual machines
+           for i in $VMACHINES
+           do
+              su - "$USERNAME" -c "vmrun start $VMSPATH/$i/$i.vmx nogui"
+           done
+        log_end_msg $?
+        ;;
+  stop)
+        log_daemon_msg "Stopping $DESC" "$NAME"
+           # Start powering off the virtual machines
+           for i in $VMACHINES
+           do
+              su - "$USERNAME" -c "vmrun stop $VMSPATH/$i/$i.vmx soft"
+           done
+        log_end_msg $?
+        ;;
+  restart)
+        $0 stop
+        sleep 3
+        $0 start
+        ;;
+  *)
+        log_success_msg "Usage: "$0" {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit 0
