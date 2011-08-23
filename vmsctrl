@@ -30,11 +30,8 @@
 DESC="VMware Workstation VMs control script"
 NAME="vmsctrl"
 
-# The two variables below should be configured
-# Username of the regular user under whose credentials VMs should be started
-USERNAME=reguser
-# Absolute path to the folder containing all VMs
-VMSPATH="/path/to/vmachines/location"
+CONFIG="/etc/default/vmsctrl.conf"
+. $CONFIG
 
 VMACHINES=("`ls $VMSPATH`")
 
