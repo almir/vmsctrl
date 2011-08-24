@@ -7,7 +7,9 @@ db_version 2.0
 
 CONFFILE=/etc/default/vmsctrl.conf
 
-. $CONFFILE || true
+if [ -e "$CONFFILE" ]; then
+    . $CONFFILE || true
+fi
 
 db_set vmsctrl/username $USERNAME
 db_set vmsctrl/vmspath $VMSPATH
