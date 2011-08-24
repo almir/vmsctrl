@@ -1,0 +1,38 @@
+#!/bin/sh
+
+set -e
+
+. /usr/share/debconf/confmodule
+db_version 2.0
+
+CONFFILE=/etc/default/vmsctrl.conf
+
+case "$1" in
+    configure)
+        db_get vmsctrl/username
+        USERNAME="$RET"
+        db_get vmsctrl/vmspath
+        VMSPATH="$RET"
+
+        sed -i 's|^ *USERNAME=.*|USERNAME='$USERNAME'|' $CONFFILE
+        sed -i 's|^ *VMSPATH=.*|VMSPATH=\"'$VMSPATH'\"|' $CONFFILE
+
+        db_stop
+
+        update-rc.d vmsctrl start 99 2 3 5 . stop 05 0 6 .
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+/etc/init.d/vmsctrl start
+
+#DEBHELPER#
+
+exit 0

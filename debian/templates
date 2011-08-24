@@ -1,0 +1,9 @@
+Template: vmsctrl/username
+Type: string
+Description: Enter the username of the regular user under whose credentials VMs should be started.
+ Username of the regular user under whose credentials VMs should be started.
+
+Template: vmsctrl/vmspath
+Type: string
+Description: Enter the absolute path to the folder containing all VMs.
+ Absolute path to the folder containing all VMs.

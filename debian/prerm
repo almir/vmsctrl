@@ -1,0 +1,15 @@
+#! /bin/sh
+
+set -e
+
+if [ "$1" = remove ] || [ "$1" = deconfigure ]; then
+    INITSCRIPT="/etc/init.d/vmsctrl"
+    if [ -e "$INITSCRIPT" ]; then
+        /etc/init.d/vmsctrl stop
+    fi
+    update-rc.d -f vmsctrl remove
+fi
+
+#DEBHELPER#
+
+exit 0

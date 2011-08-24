@@ -30,8 +30,8 @@
 DESC="VMware Workstation VMs control script"
 NAME="vmsctrl"
 
-CONFIG="/etc/default/vmsctrl.conf"
-. $CONFIG
+CONFFILE="/etc/default/vmsctrl.conf"
+. $CONFFILE
 
 VMACHINES=("`ls $VMSPATH`")
 

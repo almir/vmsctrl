@@ -1,0 +1,8 @@
+IMPORTANT
+
+The USERNAME and the VMSPATH variables contained inside /etc/default/vmsctrl.conf file
+should be set to reflect your system.
+
+The path where virtual machines are stored, or the name of the virtual machine itself,
+must not contain spaces in order for script to work properly.
+Also, the path to the vmrun must be configured within the environment variables.

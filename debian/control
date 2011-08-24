@@ -1,0 +1,15 @@
+Source: vmsctrl
+Section: utils
+Priority: optional
+Maintainer: Almir Dzinovic <almir@dzinovic.net>
+Build-Depends: debhelper (>= 8)
+Standards-Version: 3.9.1
+Homepage: http://www.dzinovic.net/?page_id=67
+Vcs-Git: git://github.com/almir/vmsctrl.git
+Vcs-Browser: https://github.com/almir/vmsctrl/
+
+Package: vmsctrl
+Architecture: all
+Depends: ${misc:Depends}, lsb-base (>= 4.0)
+Description: VMware VMs Control
+ Script for automatic control over VMware Workstation virtual machines.
