@@ -1,3 +1,9 @@
+vmsctrl (1.2) natty; urgency=low
+
+  * Fixed debian/config script to check for existence of the config file.
+
+ -- Almir Dzinovic <almir@dzinovic.net>  Wed, 24 Aug 2011 23:36:30 +0200
+
 vmsctrl (1.1) natty; urgency=low
 
   * Initial Release.
