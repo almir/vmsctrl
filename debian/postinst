@@ -9,6 +9,10 @@ CONFFILE=/etc/default/vmsctrl.conf
 
 case "$1" in
     configure)
+        db_input high vmsctrl/username || true
+        db_input high vmsctrl/vmspath || true
+        db_go || true
+
         db_get vmsctrl/username
         USERNAME="$RET"
         db_get vmsctrl/vmspath
@@ -31,7 +35,7 @@ case "$1" in
     ;;
 esac
 
-/etc/init.d/vmsctrl start
+invoke-rc.d vmsctrl start
 
 #DEBHELPER#
 

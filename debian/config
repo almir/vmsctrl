@@ -14,9 +14,4 @@ if [ -e "$CONFFILE" ]; then
     db_set vmsctrl/vmspath $VMSPATH
 fi
 
-db_input high vmsctrl/username || true
-db_input high vmsctrl/vmspath || true
-db_go || true
-
 exit 0
-

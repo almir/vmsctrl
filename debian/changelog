@@ -1,3 +1,11 @@
+vmsctrl (1.3) natty; urgency=low
+
+  * Check if vmrun exists within the system path, and abort installation
+    if not found.
+  * Minor cosmetic changes.
+
+ -- Almir Dzinovic <almir@dzinovic.net>  Thu, 25 Aug 2011 13:12:55 +0200
+
 vmsctrl (1.2) natty; urgency=low
 
   * Fixed debian/config script to check for existence of the config file.

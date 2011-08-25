@@ -10,6 +10,7 @@ Vcs-Browser: https://github.com/almir/vmsctrl/
 
 Package: vmsctrl
 Architecture: all
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, lsb-base (>= 4.0)
 Description: VMware VMs Control
  Script for automatic control over VMware Workstation virtual machines.

@@ -3,10 +3,23 @@
 set -e
 
 case "$1" in
-    install|upgrade)
+    install)
+        if [ -z "$(which vmrun)" ]; then
+            . /usr/share/debconf/confmodule
+            db_version 2.0
+
+            db_input critical vmsctrl/novmrun || true
+            db_go || true
+            db_stop
+
+            exit 1
+        fi
+    ;;
+
+    upgrade)
         INITSCRIPT="/etc/init.d/vmsctrl"
         if [ -e "$INITSCRIPT" ]; then
-            /etc/init.d/vmsctrl stop
+            invoke-rc.d vmsctrl stop
         fi
     ;;
 

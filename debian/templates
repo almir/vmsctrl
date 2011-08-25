@@ -1,9 +1,23 @@
 Template: vmsctrl/username
 Type: string
-Description: Enter the username of the regular user under whose credentials VMs should be started.
- Username of the regular user under whose credentials VMs should be started.
+Description: Username of the regular user:
+ Username of the regular user under whose credentials automatically
+ controlled virtual machines should be started.
 
 Template: vmsctrl/vmspath
 Type: string
-Description: Enter the absolute path to the folder containing all VMs.
- Absolute path to the folder containing all VMs.
+Description: Path to the folder containing VMs:
+ Absolute path to the folder where the virtual machines you want this script
+ to control automatically are located.
+
+Template: vmsctrl/novmrun
+Type: error
+Description: The vmrun command could not be found within the system path.
+ Possible reasons for this are that either the $PATH variable wasn't
+ set to include the directory where the command is located or VMware
+ Workstation hasn't been installed at all.
+ .
+ Configure the $PATH variable to include the vmrun or install VMware
+ Workstation first, and then try reinstalling this package.
+ .
+ Installation of this package is now being aborted.
